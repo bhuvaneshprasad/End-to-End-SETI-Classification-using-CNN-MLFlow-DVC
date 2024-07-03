@@ -163,3 +163,4 @@ cython_debug/
 
 template.py
 notes.txt
+logs/
