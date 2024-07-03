@@ -28,7 +28,7 @@ def read_yaml(path_to_yaml: Path) -> ConfigBox:
     try:
         with open(path_to_yaml) as yaml_file:
             content = yaml.safe_load(yaml_file)
-            logger.info(f"yaml file {path_to_yaml} loadded successfully")
+            logger.info(f"yaml file {path_to_yaml} loaded successfully")
             return ConfigBox(content)
     except BoxValueError:
         raise ValueError("Yaml file is empty")
@@ -56,7 +56,7 @@ def create_directories(path_to_directories: list, verbose: bool=True):
         raise e
 
 @ensure_annotations
-def save_json(path: Path, data: dict) -> None:
+def save_json(path: Path, data: dict):
     """
     Save JSON data to a file.
 

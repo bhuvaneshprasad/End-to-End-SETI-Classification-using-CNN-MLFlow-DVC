@@ -13,3 +13,7 @@ prepare_base_model:
 model_training:
   root_dir: artifacts/model_training
   trained_model_path: artifacts/model_training/model.keras
+
+model_evaluation:
+  dagshub_uri: https://dagshub.com/bhuvaneshprasad/End-to-End-SETI-Classification-using-CNN-MLFlow-DVC.mlflow
+  

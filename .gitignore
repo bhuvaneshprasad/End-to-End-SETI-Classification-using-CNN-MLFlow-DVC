@@ -166,3 +166,5 @@ notes.txt
 logs/
 kaggle.json
 artifacts/
+scores.json
+mlruns/
