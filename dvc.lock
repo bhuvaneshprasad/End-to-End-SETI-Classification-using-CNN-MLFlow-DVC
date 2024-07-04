@@ -1,0 +1,117 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/cnnClassifier/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: a9764e833ce576f6efcba23087928d77
+      size: 658
+    - path: src/cnnClassifier/pipeline/stage_01_data_ingestion.py
+      hash: md5
+      md5: c01c6884a5df3d9054df342d7d577896
+      size: 918
+    outs:
+    - path: artifacts/data_ingestion/seti-sub
+      hash: md5
+      md5: ef32db442a5e77a761e24f1e86ae9fca.dir
+      size: 324670039
+      nfiles: 630
+  prepare_base_model:
+    cmd: python src/cnnClassifier/pipeline/stage_02_prepare_base_model.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: a9764e833ce576f6efcba23087928d77
+      size: 658
+    - path: src/cnnClassifier/pipeline/stage_02_prepare_base_model.py
+      hash: md5
+      md5: a2214c8ac045002603afaf56b9bdd677
+      size: 1011
+    params:
+      params.yaml:
+        AUGMENTATION: true
+        BATCH_SIZE: 32
+        CLASSES: 7
+        IMAGE_SIZE:
+        - 256
+        - 256
+        - 3
+        INCLUDE_TOP: false
+        LEARNING_RATE: 0.01
+        WEIGHTS: imagenet
+    outs:
+    - path: artifacts/prepare_base_model
+      hash: md5
+      md5: 74f41e6b2e27a81060ebb71b71f3c6b9.dir
+      size: 238292708
+      nfiles: 2
+  model_training:
+    cmd: python src/cnnClassifier/pipeline/stage_03_model_training.py
+    deps:
+    - path: artifacts/data_ingestion/seti-sub
+      hash: md5
+      md5: ef32db442a5e77a761e24f1e86ae9fca.dir
+      size: 324670039
+      nfiles: 630
+    - path: artifacts/prepare_base_model
+      hash: md5
+      md5: 74f41e6b2e27a81060ebb71b71f3c6b9.dir
+      size: 238292708
+      nfiles: 2
+    - path: config/config.yaml
+      hash: md5
+      md5: a9764e833ce576f6efcba23087928d77
+      size: 658
+    - path: src/cnnClassifier/pipeline/stage_03_model_training.py
+      hash: md5
+      md5: aefe6cbf1d4a67f9cbb7eb51f2944389
+      size: 940
+    params:
+      params.yaml:
+        AUGMENTATION: true
+        BATCH_SIZE: 32
+        CLASSES: 7
+        EPOCHS: 1
+        IMAGE_SIZE:
+        - 256
+        - 256
+        - 3
+    outs:
+    - path: artifacts/model_training/model.keras
+      hash: md5
+      md5: 420a56dff3e05daf6f3fdae79c2a745c
+      size: 447669227
+  model_evaluation:
+    cmd: python src/cnnClassifier/pipeline/stage_04_model_evaluation.py
+    deps:
+    - path: artifacts/data_ingestion/seti-sub
+      hash: md5
+      md5: ef32db442a5e77a761e24f1e86ae9fca.dir
+      size: 324670039
+      nfiles: 630
+    - path: artifacts/model_training/model.keras
+      hash: md5
+      md5: 420a56dff3e05daf6f3fdae79c2a745c
+      size: 447669227
+    - path: config/config.yaml
+      hash: md5
+      md5: a9764e833ce576f6efcba23087928d77
+      size: 658
+    - path: src/cnnClassifier/pipeline/stage_04_model_evaluation.py
+      hash: md5
+      md5: a13afbdfb7c097aeaa50af416a9e1eee
+      size: 1336
+    params:
+      params.yaml:
+        BATCH_SIZE: 32
+        CLASSES: 7
+        IMAGE_SIZE:
+        - 256
+        - 256
+        - 3
+    outs:
+    - path: scores.json
+      hash: md5
+      md5: ce6fc4eecb123b98930a6d8dd974c51d
+      size: 77
