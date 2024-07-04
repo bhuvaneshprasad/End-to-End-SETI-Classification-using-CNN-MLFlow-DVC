@@ -100,8 +100,8 @@ stages:
       size: 658
     - path: src/cnnClassifier/pipeline/stage_04_model_evaluation.py
       hash: md5
-      md5: a13afbdfb7c097aeaa50af416a9e1eee
-      size: 1336
+      md5: a7a86f5509ae36e8a7a05b01a00b996e
+      size: 1334
     params:
       params.yaml:
         BATCH_SIZE: 32
@@ -113,5 +113,17 @@ stages:
     outs:
     - path: scores.json
       hash: md5
-      md5: ce6fc4eecb123b98930a6d8dd974c51d
+      md5: 10e1f795c4f9589c36134ddefe00f3a8
       size: 77
+  model_copy:
+    cmd: copy artifacts\model_training\model.keras model\model.keras
+    deps:
+    - path: artifacts/model_training/model.keras
+      hash: md5
+      md5: 420a56dff3e05daf6f3fdae79c2a745c
+      size: 447669227
+    outs:
+    - path: model/model.keras
+      hash: md5
+      md5: 420a56dff3e05daf6f3fdae79c2a745c
+      size: 447669227
