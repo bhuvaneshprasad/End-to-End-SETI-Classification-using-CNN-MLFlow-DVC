@@ -95,7 +95,7 @@ python main.py
 
 - You can use this **model.keras** to do Prediction on the test dataset or follow below instructions.
 
-- If you want to do prediction for individual images then you can run it via FastAPi as mentioned in API Reference.
+- If you want to do prediction for individual images then you can run it via FastAPi as mentioned in [API Reference](https://github.com/bhuvaneshprasad/End-to-End-SETI-Classification-using-CNN-MLFlow-DVC/#api-reference).
 
 - Else run the below command in your terminal
 
