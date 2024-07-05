@@ -2,8 +2,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 import numpy as np
-from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing import image
+import tensorflow as tf
 
 load_dotenv()
 
@@ -34,11 +33,16 @@ class PredictionPipeline:
         Returns:
             int: The predicted class label.
         """
-        model = load_model(Path(os.getenv('MODEL_URI')))
+        model = tf.keras.models.load_model(Path(os.getenv('MODEL_URI')))
+        
+        class_labels = ['brightpixel','narrowband',
+                 'narrowbanddrd','noise',
+                 'squarepulsednarrowband','squiggle',
+                 'squigglesquarepulsednarrowband']
 
         imagename = self.filename
-        test_image = image.load_img(imagename, target_size = (256,256))
-        test_image = image.img_to_array(test_image)
+        test_image = tf.keras.preprocessing.image.load_img(imagename, target_size = (256,256))
+        test_image = tf.keras.preprocessing.image.img_to_array(test_image)
         test_image = np.expand_dims(test_image, axis = 0)
         result = np.argmax(model.predict(test_image), axis=1)
-        return int(result)
+        return class_labels[int(result)]
