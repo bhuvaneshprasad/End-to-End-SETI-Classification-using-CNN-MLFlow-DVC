@@ -104,7 +104,7 @@ python main.py
 
 - Upon running the above your model will start training and you may see the model metrices in you MLFlow dashboard. The model performace is shown as below for this SETI Signals classification model.
 
-<table>
+<table align="center">
   <tr>
     <td align="center">
       <img src="assets\accuracy.png" alt="Model Training Accuracy" width="300"/><br/>
