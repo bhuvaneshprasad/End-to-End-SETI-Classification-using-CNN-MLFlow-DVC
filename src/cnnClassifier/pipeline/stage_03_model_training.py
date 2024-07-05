@@ -5,10 +5,25 @@ from cnnClassifier.config.configuration import ConfigurationManager
 STAGE_NAME = "Model Training"
 
 class ModelTrainingPipeline:
+    """
+    A class representing a pipeline for training a model.
+
+    Attributes:
+        None
+    """
     def __init__(self) -> None:
+        """
+        Initialize the ModelTrainingPipeline class.
+        """
         pass
     
     def main(self):
+        """
+        Main function to execute the model training pipeline.
+
+        Raises:
+            Exception: If there is an error during model training.
+        """
         try:
             config = ConfigurationManager()
             model_training_config = config.get_model_training_config()

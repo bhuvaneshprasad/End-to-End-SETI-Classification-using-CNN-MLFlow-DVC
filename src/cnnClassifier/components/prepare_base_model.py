@@ -6,14 +6,37 @@ from cnnClassifier.entity.config_entity import PrepareBaseModelConfig
 from cnnClassifier.utils.common import create_directories
 
 class PrepareBaseModel:
+    """
+    A class to prepare and save the base model for training, and to update the base model 
+    by adding custom layers and compiling it.
+
+    Attributes:
+        config (PrepareBaseModelConfig): Configuration for preparing the base model.
+    """
     def __init__(self, config: PrepareBaseModelConfig) -> None:
+        """
+        Initialize the PrepareBaseModel class with the given configuration.
+
+        Args:
+            config (PrepareBaseModelConfig): Configuration for preparing the base model.
+        """
         self.config = config
     
     @staticmethod
     def save_model(path: Path, model: tf.keras.Model):
+        """
+        Save the model to the specified path.
+
+        Args:
+            path (Path): Path to save the model.
+            model (tf.keras.Model): Model to be saved.
+        """
         model.save(path)
     
     def get_base_model(self):
+        """
+        Load the base model (InceptionV3) with the specified configuration and save it.
+        """
         self.model = applications.InceptionV3(
                         include_top=self.config.params_include_top,
                         weights=self.config.params_weights,
@@ -26,6 +49,18 @@ class PrepareBaseModel:
     
     @staticmethod
     def _prepare_full_model(model, classes, learning_rate, trainable=False):
+        """
+        Prepare the full model by adding custom layers and compiling it.
+
+        Args:
+            model (tf.keras.Model): Base model to be updated.
+            classes (int): Number of output classes.
+            learning_rate (float): Learning rate for the optimizer.
+            trainable (bool): Whether to make the base model trainable.
+
+        Returns:
+            tf.keras.Model: Full model with custom layers added and compiled.
+        """
         if trainable:
             model.trainable = True
         else:
@@ -52,6 +87,9 @@ class PrepareBaseModel:
         return full_model
     
     def update_base_model(self):
+        """
+        Update the base model by adding custom layers and compiling it, then save the updated model.
+        """
         self.full_model = self._prepare_full_model(
             model=self.model,
             classes=self.config.params_classes,

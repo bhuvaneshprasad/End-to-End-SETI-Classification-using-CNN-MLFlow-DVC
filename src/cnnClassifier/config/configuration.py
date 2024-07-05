@@ -9,13 +9,33 @@ from cnnClassifier.entity.config_entity import (
 from pathlib import Path
 
 class ConfigurationManager:
+    """
+    A class to manage the configuration settings for the CNN classifier.
+
+    Attributes:
+        config_filepath (str): Path to the configuration file.
+        params_filepath (str): Path to the parameters file.
+    """
     def __init__(self, config_filepath = CONFIG_FILE_PATH, params_filepath = PARAMS_FILE_PATH) -> None:
+        """
+        Initialize the ConfigurationManager with paths to the configuration and parameters files.
+
+        Args:
+            config_filepath (str): Path to the configuration file.
+            params_filepath (str): Path to the parameters file.
+        """
         self.config = read_yaml(config_filepath)
         self.params = read_yaml(params_filepath)
         
         create_directories([self.config.artifacts_root])
     
     def get_data_ingestion_config(self) -> DataIngestionConfig:
+        """
+        Get the Data Ingestion configuration.
+
+        Returns:
+            DataIngestionConfig: Data ingestion configuration settings.
+        """
         config = self.config.data_ingestion
         
         create_directories([config.root_dir])
@@ -29,6 +49,12 @@ class ConfigurationManager:
         return data_ingestion_config
     
     def get_prepare_base_model_config(self) -> PrepareBaseModelConfig:
+        """
+        Get the Prepare Base Model configuration.
+
+        Returns:
+            PrepareBaseModelConfig: Prepare base model configuration settings.
+        """
         config = self.config.prepare_base_model
         
         prepare_base_model_config = PrepareBaseModelConfig(
@@ -47,6 +73,12 @@ class ConfigurationManager:
         return prepare_base_model_config
     
     def get_model_training_config(self) -> ModelTrainingConfig:
+        """
+        Get the Model Training configuration.
+
+        Returns:
+            ModelTrainingConfig: Model training configuration settings.
+        """
         model_training = self.config.model_training
         prepare_base_model = self.config.prepare_base_model
         params = self.params
@@ -68,7 +100,12 @@ class ConfigurationManager:
         return model_training_config
     
     def get_evaluation_config(self) -> EvaluationConfig:
-        
+        """
+        Get the Evaluation configuration.
+
+        Returns:
+            EvaluationConfig: Evaluation configuration settings.
+        """
         eval_config = EvaluationConfig(
             path_of_model=self.config.model_training.trained_model_path,
             training_data_path=self.config.data_ingestion.data_dir,

@@ -11,14 +11,39 @@ from mlflow.types import Schema, TensorSpec
 
 
 class Evaluation:
+    """
+    A class to handle model evaluation tasks including loading the model,
+    evaluating on validation data, saving scores, and logging metrics to MLflow.
+
+    Attributes:
+        config (EvaluationConfig): Configuration for the evaluation process.
+    """
     def __init__(self, config: EvaluationConfig):
+        """
+        Initialize the Evaluation class with the given configuration.
+
+        Args:
+            config (EvaluationConfig): Configuration for the evaluation process.
+        """
         self.config = config
 
     @staticmethod
     def load_model(path: Path) -> tf.keras.Model:
+        """
+        Load a TensorFlow model from the specified path.
+
+        Args:
+            path (Path): Path to the model.
+
+        Returns:
+            tf.keras.Model: Loaded TensorFlow model.
+        """
         return tf.keras.models.load_model(path)
     
     def evaluation(self):
+        """
+        Evaluate the model on the validation dataset and save the evaluation score.
+        """
         val_data = os.path.join(self.config.training_data_path, "seti-sub\\seti_signals_sub\\valid")
         val_dataset = tf.keras.preprocessing.image_dataset_from_directory(
                                 val_data,
@@ -33,10 +58,16 @@ class Evaluation:
         self.save_score()
 
     def save_score(self):
+        """
+        Save the evaluation score to a JSON file.
+        """
         scores = {'loss': self.score[0], 'accuracy': self.score[1]}
         save_json(path=Path("scores.json"), data=scores)
     
     def log_into_mlflow(self):
+        """
+        Log parameters and metrics to MLflow and register the model.
+        """
         mlflow.set_registry_uri(self.config.mlflow_uri)
         tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
         

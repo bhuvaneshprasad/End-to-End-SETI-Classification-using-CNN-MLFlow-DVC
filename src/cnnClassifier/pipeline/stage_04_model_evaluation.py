@@ -10,10 +10,25 @@ from cnnClassifier.utils.common import read_yaml
 STAGE_NAME = "Model Evaluation and MLFlow"
 
 class ModelEvaluationPipeline:
+    """
+    A class representing a pipeline for evaluating a model.
+
+    Attributes:
+        None
+    """
     def __init__(self) -> None:
+        """
+        Initialize the ModelEvaluationPipeline class.
+        """
         pass
     
     def main(self):
+        """
+        Main function to execute the model evaluation pipeline.
+
+        Raises:
+            Exception: If there is an error during model evaluation or logging.
+        """
         try:
             config = read_yaml(CONFIG_FILE_PATH)
             mlflow.set_tracking_uri(config.model_evaluation.dagshub_uri)

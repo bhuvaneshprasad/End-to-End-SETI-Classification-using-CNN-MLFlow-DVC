@@ -8,10 +8,32 @@ from tensorflow.keras.preprocessing import image
 load_dotenv()
 
 class PredictionPipeline:
+    """
+    A class representing a pipeline for making predictions using a pre-trained model.
+
+    Attributes:
+        filename (str): The filename of the image to predict.
+
+    Methods:
+        predict() -> int:
+            Loads a pre-trained model, processes an image, and predicts its class.
+    """
     def __init__(self,filename):
+        """
+        Initialize the PredictionPipeline class.
+
+        Args:
+            filename (str): The filename of the image to predict.
+        """
         self.filename =filename
     
     def predict(self) -> int:
+        """
+        Perform prediction on the image specified by the filename.
+
+        Returns:
+            int: The predicted class label.
+        """
         model = load_model(Path(os.getenv('MODEL_URI')))
 
         imagename = self.filename

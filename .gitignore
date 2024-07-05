@@ -168,3 +168,4 @@ kaggle.json
 artifacts/
 scores.json
 mlruns/
+gitleaks.exe
