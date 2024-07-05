@@ -1,6 +1,5 @@
 from pathlib import Path
 import tensorflow as tf
-from tensorflow.keras import layers, applications
 
 from cnnClassifier.entity.config_entity import PrepareBaseModelConfig
 from cnnClassifier.utils.common import create_directories
@@ -37,7 +36,7 @@ class PrepareBaseModel:
         """
         Load the base model (InceptionV3) with the specified configuration and save it.
         """
-        self.model = applications.InceptionV3(
+        self.model = tf.keras.applications.inception_v3.InceptionV3(
                         include_top=self.config.params_include_top,
                         weights=self.config.params_weights,
                         input_shape=self.config.params_image_size,
@@ -67,11 +66,7 @@ class PrepareBaseModel:
             model.trainable = False
         
         full_model = tf.keras.layers.Flatten()(model.output)
-        full_model = tf.keras.layers.Dense(208, activation='relu')(full_model)
-        full_model = tf.keras.layers.Dropout(0.3)(full_model)
-        full_model = tf.keras.layers.Dense(208, activation='relu')(full_model)
-        full_model = tf.keras.layers.Dropout(0.3)(full_model)
-        full_model = tf.keras.layers.Dense(208, activation='relu')(full_model)
+        full_model = tf.keras.layers.Dense(448, activation='relu', kernel_regularizer=tf.keras.regularizers.L2(0.01))(full_model)
         full_model = tf.keras.layers.Dropout(0.2)(full_model)
         full_model = tf.keras.layers.Dense(classes, activation='softmax')(full_model)
 
