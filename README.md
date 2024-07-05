@@ -1,7 +1,6 @@
 
 # Classifying Extraterrestrial Signals with Deep Learning
 
-
  [![Static Badge](https://img.shields.io/badge/Python-v3.12.2-v?label=Python&color=blue)]() [![Static Badge](https://img.shields.io/badge/Tensorflow-v2.16.2-v?color=orange)]() ![Static Badge](https://img.shields.io/badge/MLflow-v2.14.1-v?color=%230b3574) [![Static Badge](https://img.shields.io/badge/Dagshub-v0.3.29-v?color=%23192e36)]() [![Static Badge](https://img.shields.io/badge/FastAPI-v0.111.0-v?color=%23009485)]() [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/bhuvaneshprasad/End-to-End-SETI-Classification-using-CNN-MLFlow-DVC/blob/main/LICENSE)
 
 This project leverages the power of deep learning to classify signals collected by the Search for Extraterrestrial Intelligence (SETI) initiative. By customizing the InceptionV3 neural network architecture, the model achieved impressive results, with 94% accuracy in training, 88% in validation, and 87% in testing. The development and experimentation were meticulously tracked using MLflow, ensuring robust and reproducible results. This AI-driven solution enhances the classification of potential extraterrestrial signals, contributing to the ongoing efforts in the search for intelligent life beyond Earth. This approach not only improves the accuracy of signal identification but also paves the way for further research and innovation in astrobiology.
@@ -12,6 +11,22 @@ This project leverages the power of deep learning to classify signals collected 
     2. How to customize and fine-tune models like InceptionV3 improves performance for specific tasks.
     3. How to use MLFlow for effective tracking and repoducibility.
     4. Effectively using version control systems like github and DVC.
+
+## Model Inference
+
+- Upon training the model and evaluating the performance of the model, I got the accuracy of 94% accuracy in training dataset and about 87% on the unseen dataset.
+
+- The difference in accuracy between the training and unseen data is very less, so we can say that the model is able to perform with high accuracy.
+
+- The precision, recall and f1-scores are also impresive around 80-95% for individual classes and combined.
+
+- Below is the confusion matrix for the train, validation and test dataset.
+
+<div align="center">
+  <img src="assets\confusion_matrix.jpg">
+</div>
+
+- The diagonals shows the correct predictions made by the model and they are all high, indicating a good and consistent performance across datasets and classes.
 
 ## Run Locally
 
@@ -86,6 +101,34 @@ dvc repro
 ```bash
 python main.py
 ```
+
+- Upon running the above your model will start training and you may see the model metrices in you MLFlow dashboard. The model performace is shown as below for this SETI Signals classification model.
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="assets\accuracy.png" alt="Model Training Accuracy" width="300"/><br/>
+      <em>Accuracy</em>
+    </td>
+    <td align="center">
+      <img src="assets\loss.png" alt="Model Training Loss" width="300"/><br/>
+      <em>Loss</em>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="assets\val_accuracy.png" alt="Validation Accuracy" width="300"/><br/>
+      <em>Validation Accuracy</em>
+    </td>
+    <td align="center">
+      <img src="assets\val_loss.png" alt="Image 4" width="300"/><br/>
+      <em>validation Loss</em>
+    </td>
+  </tr>
+</table>
+
+- Looking at the above images, we can see that the accuracy on training and validation datasets after each epoch is steadyly growing without any spike, implying a good model. Same with loss, and validation loss, both are consistently decreasing towards 0.
+
 
 ## Test Results
 
