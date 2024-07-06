@@ -5,6 +5,35 @@
 
 This project leverages the power of deep learning to classify signals collected by the Search for Extraterrestrial Intelligence (SETI) initiative. By customizing the InceptionV3 neural network architecture, the model achieved impressive results, with 94% accuracy in training, 88% in validation, and 87% in testing. The development and experimentation were meticulously tracked using MLflow, ensuring robust and reproducible results. This AI-driven solution enhances the classification of potential extraterrestrial signals, contributing to the ongoing efforts in the search for intelligent life beyond Earth. This approach not only improves the accuracy of signal identification but also paves the way for further research and innovation in astrobiology.
 
+## Demo
+
+**Note**: The project is compiled as a Docker image and deployed on Docker Hub, but it has not been uploaded to AWS due to the model size and associated costs.
+
+- The model has been packaged as a Docker image and deployed on Docker Hub.
+- To run it, use the following commands in your terminal after starting the Docker engine:
+
+```bash
+docker pull bhuvaneshprasad/seti-signals-classifier:1.0.1
+docker run --name seti-signals-classifier -d -p 7384:7384 -p 8501:8501 bhuvaneshprasad/seti-signals-classifier:1.0.1
+```
+
+- After running the above commands, the app will be accessible at http://localhost:8501 and will look like this:
+
+<div align="center">
+  <img src="assets\app_sample.png">
+</div>
+
+- You can upload a sample image from [here](https://github.com/bhuvaneshprasad/End-to-End-SETI-Classification-using-CNN-MLFlow-DVC/tree/main/assets/test_images) into the running app to get the prediction:
+
+<div align="center">
+  <img src="assets\prediction_loading.png">
+</div>
+<br>
+<div align="center">
+  <img src="assets\prediction.png">
+</div>
+
+
 ## Lessons Learned
 
     1. How to develope a deep learning project from scratch.
