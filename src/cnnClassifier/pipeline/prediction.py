@@ -33,8 +33,7 @@ class PredictionPipeline:
         Returns:
             int: The predicted class label.
         """
-        model = tf.keras.models.load_model(Path(os.getenv('MODEL_URI')))
-        
+        model = tf.keras.models.load_model(os.path.join(os.getcwd(),Path(os.getenv('MODEL_URI'))))
         class_labels = ['brightpixel','narrowband',
                  'narrowbanddrd','noise',
                  'squarepulsednarrowband','squiggle',

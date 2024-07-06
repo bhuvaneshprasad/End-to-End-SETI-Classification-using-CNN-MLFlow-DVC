@@ -1,0 +1,14 @@
+.gitignore
+.dvc/
+.github/
+dvc.lock
+gitleaks.exe
+kaggle.json
+scores.json
+template.py
+.env
+research/kaggle.json
+notes.txt
+venv/
+artifacts/data_ingestion/
+artifacts/prepare_base_model
