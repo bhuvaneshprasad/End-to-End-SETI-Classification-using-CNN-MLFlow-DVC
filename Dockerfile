@@ -10,6 +10,9 @@ COPY . /app
 RUN mkdir -p /app/logs && chmod -R 777 /app
 RUN pip install -r requirements.txt
 
+EXPOSE 8501
 EXPOSE 7384
 
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7384"]
+ENV PYTHONIOENCODING=UTF-8
+
+CMD streamlit run streamlit_app/app.py --server.port 8501 & uvicorn app:app --port 7384
