@@ -7,10 +7,13 @@ This project leverages the power of deep learning to classify signals collected 
 
 ## Demo
 
-**Note**: The project is compiled as a Docker image and deployed on Docker Hub, but it has not been uploaded to AWS due to the model size and associated costs.
+**Note**: The project is deployed to huggingface spaces for demo purpose. The huggingface spaces may be down if not used, and it might take a couple of minutes to startup initially.
 
-- The model has been packaged as a Docker image and deployed on Docker Hub.
-- To run it, use the following commands in your terminal after starting the Docker engine:
+- You can click [here](https://huggingface.co/spaces/bhuvaneshprasad/seti-signals-classifier) to check the live demo of the streamlit app. Screenshots of the streamlit app are provided below.
+
+- The model has also been deployed to Docker hub. You can follow the below steps to pull and run Docker Image locally.
+
+- To run the docker container locally, use the following commands in your terminal after starting the Docker engine:
 
 ```bash
 docker pull bhuvaneshprasad/seti-signals-classifier:1.0.1
@@ -32,6 +35,8 @@ docker run --name seti-signals-classifier -d -p 7384:7384 -p 8501:8501 bhuvanesh
 <div align="center">
   <img src="assets\prediction.png">
 </div>
+
+- While the docker container is running you can check the fastapi docs at http://localhost:7384/docs or http://localhost:7384/redoc
 
 
 ## Lessons Learned
